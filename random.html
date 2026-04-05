@@ -5,48 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Random Image</title>
     <style>
-      * {
-        margin: 0%;
-        padding: 0%;
-      }
-      #main {
-        height: 100vh;
-        width: 100vw;
-        background-color: black;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        color: white;
-      }
-      img,
-      button {
-        border-radius: 10px;
-      }
-      button {
-        width: 100px;
-        height: 30px;
-        border: none;
-        font-weight: 600;
-        cursor: pointer;
-      }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #main{
+            height: 100vh;
+            width: 100vw;
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        img, button{
+            border-radius: 10px;
+        }
+        button{
+            width: 100px;
+            height: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        /* Spinner style */
+        #spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            display: none; /* hidden by default */
+            margin: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
   </head>
   <body>
     <div id="main">
-      <h1>Random image Generator</h1>
-      <br />
-      <img src="https://picsum.photos/500" alt="No internet Connection" /><br />
+      <h1>Random Image Generator</h1><br>
+      <div id="spinner"></div>
+      <img id="randomImg" src="https://picsum.photos/500?random=1" alt="No internet Connection" /><br>
       <button onclick="refresh()">Refresh</button>
     </div>
     <script>
-      function refresh() {
-        //below line reload the all file so it become slow
-        //location.reload(true);
-        //we add below line to reload only img tag
-        const img = document.querySelector("img");
-        img.src = "https://picsum.photos/500?random=" + new Date().getTime();
-      }
+        function refresh(){
+            const img = document.getElementById("randomImg");
+            const spinner = document.getElementById("spinner");
+
+            // Show spinner
+            spinner.style.display = "block";
+            img.style.display = "none";
+
+            // Load new image with cache-busting query
+            const newSrc = "https://picsum.photos/500?random=" + new Date().getTime();
+            img.src = newSrc;
+
+            // When image loads, hide spinner
+            img.onload = function(){
+                spinner.style.display = "none";
+                img.style.display = "block";
+            };
+        }
     </script>
   </body>
 </html>
