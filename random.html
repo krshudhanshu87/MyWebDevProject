@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Image</title>
+    <style>
+      * {
+        margin: 0%;
+        padding: 0%;
+      }
+      #main {
+        height: 100vh;
+        width: 100vw;
+        background-color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+      }
+      img,
+      button {
+        border-radius: 10px;
+      }
+      button {
+        width: 100px;
+        height: 30px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <h1>Random image Generator</h1>
+      <br />
+      <img src="https://picsum.photos/500" alt="No internet Connection" /><br />
+      <button onclick="refresh()">Refresh</button>
+    </div>
+    <script>
+      function refresh() {
+        //below line reload the all file so it become slow
+        //location.reload(true);
+        //we add below line to reload only img tag
+        const img = document.querySelector("img");
+        img.src = "https://picsum.photos/500?random=" + new Date().getTime();
+      }
+    </script>
+  </body>
+</html>
